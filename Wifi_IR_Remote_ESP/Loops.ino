@@ -9,6 +9,7 @@ void Always_loop()
 void Fast_Loop()
 { 
   looping();
+  server.handleClient(); 
 }
 
 
