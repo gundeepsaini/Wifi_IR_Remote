@@ -29,6 +29,10 @@ void IR_Transmit(int IR_code)
     18  IR_OK           
     19  IR_BACK           
 */
+
+  Serial.print("IR cmd sent:");
+  Serial.println(IR_code);
+
   switch(IR_code)
       {
         case 11: 

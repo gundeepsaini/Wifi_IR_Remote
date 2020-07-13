@@ -37,17 +37,17 @@ void webSocketEvent(WStype_t type, uint8_t * payload, size_t length)
   switch(type) 
   {
     case WStype_DISCONNECTED:
-	      isConnected = false;    	      
-	      Serial.printf("Sinric disconnected\n");
-	      break;
+        isConnected = false;            
+        Serial.printf("Sinric disconnected\n");
+        break;
 
     case WStype_CONNECTED: 
-	      isConnected = true;
-	      Serial.printf("Sinric connected\n");	      		      	
-	      break;
+        isConnected = true;
+        Serial.printf("Sinric connected\n");                    
+        break;
 
     case WStype_TEXT:
-    	{
+      {
        Serial.printf("Sinric cmd:%s\n", payload);
        
        DynamicJsonDocument json(1024);
@@ -76,19 +76,53 @@ void webSocketEvent(WStype_t type, uint8_t * payload, size_t length)
           }
 
           // alexa, turn the volume down on tv by 20 ==> {"deviceId":"xxx","action":"AdjustVolume","value":{"volume":-20,"volumeDefault":false}}
-          // alexa, lower the volume on tv ==> {"deviceId":"xx","action":"AdjustVolume","value":{"volume":-10,"volumeDefault":true}}
+          // alexa, lower the volume on tv ==> {"deviceId":"xx","action":"AdjustVolume","value":{"volume":-10,"volumeDefault":true}}          
           else if(action == "AdjustVolume") 
           {             
-            const char* kcvolume = json ["value"]["volume"];
-            int volume = atoi(kcvolume);  
-            Serial.println(volume);
-            //adjustVolume(volume);
-            //IR_Transmit(11);
+            String vol = json ["value"]["volume"];
+            int volume = vol.toInt();  
+            
+            if(volume > 0)
+            {
+              IR_Transmit(12);
+              delay(100);
+              IR_Transmit(12);
+              delay(100);
+              IR_Transmit(12);
+            }
+            else
+            {
+              IR_Transmit(13);
+              delay(100);
+              IR_Transmit(13);
+              delay(100);
+              IR_Transmit(13);
+            }            
           }          
          
           else if(action == "SelectInput") 
           { 
           // alexa, change the input to hdmi ==> {"deviceId":"xx","action":"","value":{"input":"HDMI"}}
+          // "SelectInput","value":{"input":"HDMI 1"}}
+          // "action":"SelectInput","value":{"input":"XBOX"}}
+            String Input_cmd  = json ["value"]["input"];
+            
+            if(Input_cmd == "HDMI 1")
+            {
+              IR_Transmit(15);
+              delay(100);
+              IR_Transmit(16);
+              delay(100);
+              IR_Transmit(18);
+            }
+            if(Input_cmd == "XBOX")
+            {
+              IR_Transmit(15);
+              delay(100);
+              IR_Transmit(17);
+              delay(100); 
+              IR_Transmit(18);
+            }
           }
 
           else if(action == "ChangeChannel") 
@@ -122,5 +156,4 @@ void webSocketEvent(WStype_t type, uint8_t * payload, size_t length)
       }    
   }
 }
-
 

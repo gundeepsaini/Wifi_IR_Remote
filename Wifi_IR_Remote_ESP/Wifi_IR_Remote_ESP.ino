@@ -31,10 +31,8 @@
 #include "Secrets.h"
 #include <ArduinoOTA.h>
 #include <ESP8266WebServer.h>
-//#include <WiFiUdp.h>
 #include <WebSocketsClient.h>
 #include <ArduinoJson.h> 
-// With ESP8266
 #include <Arduino.h>
 #include <IRremoteESP8266.h>
 #include <IRsend.h>
