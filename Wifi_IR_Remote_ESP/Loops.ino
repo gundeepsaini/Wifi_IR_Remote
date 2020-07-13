@@ -10,6 +10,7 @@ void Fast_Loop()
 { 
   server.handleClient(); 
   MQTT_loop();
+  Alexa_Handle();
 }
 
 
