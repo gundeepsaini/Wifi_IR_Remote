@@ -103,7 +103,7 @@ void setup()
   irsend.begin();
   OTA_Config();
   WebServer_Config();
-  //MQTT_Config();
+  MQTT_Config();
   
   digitalWrite(LED_BUILTIN, HIGH);
   Serial.println("Ready");

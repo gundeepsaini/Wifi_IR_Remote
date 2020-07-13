@@ -1,7 +1,7 @@
 
 /*
-	HTML Page, test here: https://www.w3schools.com/html/tryit.asp?filename=tryhtml_table_intro
-	Convert here: http://davidjwatts.com/youtube/esp8266/esp-convertHTM.html#
+  HTML Page, test here: https://www.w3schools.com/html/tryit.asp?filename=tryhtml_table_intro
+  Convert here: http://davidjwatts.com/youtube/esp8266/esp-convertHTM.html#
 */
 
 
@@ -9,14 +9,10 @@
 
 void Prep_webpage1()
 {
-  time_t now1;  
-  time(&now1);
-  String timeStr = String(ctime(&now1));
-
     // !!! ELements that don't change !!!
   String page_head ="<!DOCTYPE html><html><head><style>td,th{ border: 1px solid #dddddd; text-align: left; padding: 8px;} tr:nth-child(even){background-color: #dddddd;}</style></head>";
   String body_start = "<body>";
-  String body_table_start = String("<h2>") + DeviceHostName + String("</h2><h4>Updated: ") + timeStr + String("</h4><table>");
+  String body_table_start = String("<h2>") + DeviceHostName + String("</h2><h4>Updated millis: ") + String(millis()) + String("</h4><table>");
   String body_table_row00 ="<tr><th>#</th><th>Description</th><th>Value</th><th>Unit</th></tr>";
   String body_end = "</table></body></html>";
 
@@ -29,15 +25,15 @@ void Prep_webpage1()
   
 
   webpage1 = page_head +
-  			 body_start +
-  			 body_table_start +
-  			 body_table_row00 +
-  			 body_table_row01 +
-  			 //body_table_row02 +
+         body_start +
+         body_table_start +
+         body_table_row00 +
+         body_table_row01 +
+         //body_table_row02 +
          //body_table_row03 +
          //body_table_row04 +
          //body_table_row05 +
-  			 body_end; 
+         body_end; 
          
 }
 

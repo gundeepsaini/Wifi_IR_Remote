@@ -8,7 +8,6 @@ void Always_loop()
 
 void Fast_Loop()
 { 
-  looping();
   server.handleClient(); 
   MQTT_loop();
 }
@@ -16,8 +15,7 @@ void Fast_Loop()
 
 void Slow_Loop()
 {  
-  
-
+  MQTT_publish();
 }
 
 

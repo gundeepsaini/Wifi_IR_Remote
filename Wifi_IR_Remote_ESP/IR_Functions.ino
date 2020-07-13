@@ -1,14 +1,14 @@
 
 
 
-void looping() 
+void CMD_from_SerialPort() 
 {
   
   if (Serial.available() > 0) 
   {    
     int inByte = Serial.read() - 48 + 10;    
     IR_Transmit(inByte);      
-    //Serial.println(inByte);
+    Serial.println(inByte);
   }
 }
 

@@ -23,19 +23,21 @@ const char* mqtt_password   = SECRET_MQTT_Pass;
 #define MQTT_TOPIC_CMD_IR_Remote    "homeassistant/device/Wifi_IR_Remote/cmd"
 
 
+unsigned long MQTT_heartbeat_timestamp = 0;
+
 /**************** External Functions ************************************/
 
 void MQTT_Config()
 {
-	client.setServer(mqtt_server, SECRET_MQTT_Port);
- 	client.setCallback(MQTT_MessageRecd_callback);  
+  client.setServer(mqtt_server, SECRET_MQTT_Port);
+  client.setCallback(MQTT_MessageRecd_callback);  
 }
 
 
 void MQTT_loop()
 {
-	if (!client.connected())
-    	MQTT_reconnect();              
+  if (!client.connected())
+      MQTT_reconnect();              
   
   client.loop();
 }
@@ -43,7 +45,7 @@ void MQTT_loop()
 
 void MQTT_publish()
 {   
-    //MQTT_PIR_heartbeat();
+    MQTT_heartbeat();
 }
 
 
@@ -66,7 +68,7 @@ void MQTT_reconnect()
 }
 
 
-void MQTT_MessageRecd_callback(char* topic, byte* payload, unsigned int length) 
+void MQTT_MessageRecd_callback(char* p_topic, byte* p_payload, unsigned int p_length) 
 {
   String payload;
   for (uint8_t i = 0; i < p_length; i++) 
@@ -74,11 +76,20 @@ void MQTT_MessageRecd_callback(char* topic, byte* payload, unsigned int length)
 
   if (String(MQTT_TOPIC_CMD_IR_Remote).equals(p_topic)) 
   {
-    Serial.println(payload);
-    if (payload.equals(11))    
-      {
-        delay(1);
-      }      
+    int IR_code = payload.toInt();
+    Serial.print("MQTT CMD :");
+    Serial.println(IR_code);
+    IR_Transmit(IR_code);         
   } 
 
+}
+
+
+void MQTT_heartbeat()
+{
+  if(millis()/1000 - MQTT_heartbeat_timestamp > 300 || MQTT_heartbeat_timestamp==0)
+  {
+    MQTT_heartbeat_timestamp = millis()/1000;
+    client.publish(MQTT_TOPIC_STATE_IR_Remote, "1", true);
+  }
 }
