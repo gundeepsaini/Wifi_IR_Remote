@@ -84,19 +84,11 @@ void webSocketEvent(WStype_t type, uint8_t * payload, size_t length)
             
             if(volume > 0)
             {
-              IR_Transmit(12);
-              delay(100);
-              IR_Transmit(12);
-              delay(100);
-              IR_Transmit(12);
+              IR_Transmit(103);
             }
             else
             {
-              IR_Transmit(13);
-              delay(100);
-              IR_Transmit(13);
-              delay(100);
-              IR_Transmit(13);
+              IR_Transmit(104);
             }            
           }          
          
@@ -109,19 +101,11 @@ void webSocketEvent(WStype_t type, uint8_t * payload, size_t length)
             
             if(Input_cmd == "HDMI 1")
             {
-              IR_Transmit(15);
-              delay(100);
-              IR_Transmit(16);
-              delay(100);
-              IR_Transmit(18);
+              IR_Transmit(102);
             }
             if(Input_cmd == "XBOX")
             {
-              IR_Transmit(15);
-              delay(100);
-              IR_Transmit(17);
-              delay(100); 
-              IR_Transmit(18);
+              IR_Transmit(101);
             }
           }
 

@@ -27,7 +27,13 @@ void IR_Transmit(int IR_code)
     16  IR_Arrow_UP     
     17  IR_Arrow_DOWN   
     18  IR_OK           
-    19  IR_BACK           
+    19  IR_BACK
+    
+    // Combination Commands
+    101 Switch to Xbox
+    102 Switch to HDMI (Fire TV)
+    103 Repeat Vol up   x3
+    104 Repeat Vol down x3           
 */
 
   Serial.print("IR cmd sent:");
@@ -105,6 +111,46 @@ void IR_Transmit(int IR_code)
                   irsend.sendNEC(IR_BACK, IR_NEC_bits);
                   delay(40);
                 }
-               break;                                                                             
+               break;
+                
+        case 101: 
+              for(int i=0; i<1;i++) 
+                {
+                  irsend.sendNEC(IR_Input_Select, IR_NEC_bits);
+                  delay(50);
+                  irsend.sendNEC(IR_Arrow_DOWN, IR_NEC_bits);
+                  delay(50);
+                  irsend.sendNEC(IR_OK, IR_NEC_bits);
+                  delay(50);
+                }
+               break;
+
+        case 102: 
+              for(int i=0; i<1;i++) 
+                {
+                  irsend.sendNEC(IR_Input_Select, IR_NEC_bits);
+                  delay(50);
+                  irsend.sendNEC(IR_Arrow_UP, IR_NEC_bits);
+                  delay(50);
+                  irsend.sendNEC(IR_OK, IR_NEC_bits);
+                  delay(50);
+                }
+               break;
+
+        case 103: 
+              for(int i=0; i<3;i++) 
+                {
+                  irsend.sendNEC(IR_Vol_UP, IR_NEC_bits);
+                  delay(50);
+                }
+               break;
+
+        case 104: 
+              for(int i=0; i<3;i++) 
+                {
+                  irsend.sendNEC(IR_Vol_DOWN, IR_NEC_bits);
+                  delay(50);
+                }
+               break;                                                                                                                         
       }
 }
