@@ -98,5 +98,9 @@ void MQTT_heartbeat()
 
 void MQTT_IR_Recd_msg(String IR_msg)
 {
-  client.publish(MQTT_TOPIC_STATE_IR_Remote, IR_msg, true);
+  //Serial.println(IR_msg.length());
+  char msg[100];
+  IR_msg.toCharArray(msg, 90);
+  client.publish(MQTT_TOPIC_STATE_IR_Remote, msg, true);
+  MQTT_heartbeat_timestamp = millis()/1000;
 }
