@@ -90,6 +90,13 @@ void MQTT_heartbeat()
   if(millis()/1000 - MQTT_heartbeat_timestamp > 300 || MQTT_heartbeat_timestamp==0)
   {
     MQTT_heartbeat_timestamp = millis()/1000;
-    client.publish(MQTT_TOPIC_STATE_IR_Remote, "1", true);
+    client.publish(MQTT_TOPIC_STATE_IR_Remote, "Running", true);
   }
+}
+
+
+
+void MQTT_IR_Recd_msg(String IR_msg)
+{
+  client.publish(MQTT_TOPIC_STATE_IR_Remote, IR_msg, true);
 }

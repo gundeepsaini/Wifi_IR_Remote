@@ -20,7 +20,9 @@ void IR_Receiver_Handle()
 {
   if(irrecv.decode(&results)) 
   {
-    Serial.print(resultToHumanReadableBasic(&results));
+    String IR_msg_recd = resultToHumanReadableBasic(&results);
+    Serial.print(IR_msg_recd);
+    MQTT_IR_Recd_msg(IR_msg_recd);
     yield();                                    // Feed the WDT as the text output can take a while to print.
     Serial.println();
   }
