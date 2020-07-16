@@ -36,6 +36,8 @@
 #include <Arduino.h>
 #include <IRremoteESP8266.h>
 #include <IRsend.h>
+#include <IRrecv.h>
+#include <IRutils.h>
 
 
 /* ------------- CONFIG VAR ------------------------------ */
@@ -106,6 +108,7 @@ void setup()
   WebServer_Config();
   MQTT_Config();
   Alexa_Config();
+  IR_Rx_Config();
   
   digitalWrite(LED_BUILTIN, HIGH);
   Serial.println("Ready");
