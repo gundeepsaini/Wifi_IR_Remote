@@ -56,7 +56,7 @@ void webSocketEvent(WStype_t type, uint8_t * payload, size_t length)
        String deviceId = json ["deviceId"];
        String action = json ["action"];
        
-       if(deviceId == SECRET_Sinric_DeviceID7)
+       if(deviceId == SECRET_Sinric_DeviceID7a)
        {
           // alexa, turn on tv ==> {"deviceId":"xx","action":"setPowerState","value":"ON"}
           if(action == "setPowerState") 
@@ -130,6 +130,25 @@ void webSocketEvent(WStype_t type, uint8_t * payload, size_t length)
           // for others check https://developer.amazon.com/docs/device-apis/alexa-playbackcontroller.html
           }
         }
+
+      if(deviceId == SECRET_Sinric_DeviceID7b)
+       {
+          // alexa, turn on mood light ==> {"deviceId":"xx","action":"setPowerState","value":"ON"}
+          if(action == "setPowerState") 
+          {            
+            String value = json ["value"];
+            if(value == "ON") 
+              {
+                IR_Transmit(51);
+                IR_Transmit(53);
+              } 
+            else 
+              {
+                IR_Transmit(52);
+              }
+          }
+       }
+
        break;
       }
     
