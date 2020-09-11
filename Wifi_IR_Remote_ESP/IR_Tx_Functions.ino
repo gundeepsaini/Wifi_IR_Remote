@@ -33,7 +33,13 @@ void IR_Transmit(int IR_code)
     101 Switch to Xbox
     102 Switch to HDMI (Fire TV)
     103 Repeat Vol up   x3
-    104 Repeat Vol down x3           
+    104 Repeat Vol down x3  
+
+
+    // IR Mood Light Commands
+    51 Switch On
+    52 Switch Off
+    53 Change color to White         
 */
 
   Serial.print("IR cmd sent:");
@@ -112,6 +118,30 @@ void IR_Transmit(int IR_code)
                   delay(40);
                 }
                break;
+
+        case 51: 
+              for(int i=0; i<IR_Repeat;i++) 
+                {
+                  irsend.sendNEC(IR_Light_ON, IR_NEC_bits);
+                  delay(40);
+                }
+               break;
+
+        case 52: 
+              for(int i=0; i<IR_Repeat;i++) 
+                {
+                  irsend.sendNEC(IR_Light_OFF, IR_NEC_bits);
+                  delay(40);
+                }
+               break;
+
+        case 53: 
+              for(int i=0; i<IR_Repeat;i++) 
+                {
+                  irsend.sendNEC(IR_Light_White, IR_NEC_bits);
+                  delay(40);
+                }
+               break;               
                 
         case 101: 
               for(int i=0; i<1;i++) 

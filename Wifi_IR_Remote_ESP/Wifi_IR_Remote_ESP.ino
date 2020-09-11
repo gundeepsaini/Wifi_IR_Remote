@@ -3,7 +3,7 @@
 
     Arduino IR Remote
 
-  Configured for HKC 42" TV
+  Configured for HKC 42" TV + IR Mood Light on dining table
   
   Date              : 12.07.2020
 
@@ -23,6 +23,12 @@
       OK            : 4FB16E9
       BACK          : 4FB1AE5
       MUTE          : 4FB807F
+
+  IR Mood Light
+      Protocol      : NEC
+      On            : 0xF7C03F
+      Off           : 0xF740BF
+      White Color   : 0xF7E01F
 
 ------------------------------------------- */
 
@@ -61,6 +67,10 @@ const uint16_t IR_Tx = 4;  // ESP8266 GPIO pin 4 (D2)
 #define IR_Arrow_DOWN   0x4FB8679
 #define IR_OK           0x4FB16E9
 #define IR_BACK         0x4FB1AE5  
+
+#define IR_Light_ON     0xF7C03F
+#define IR_Light_OFF    0xF740BF
+#define IR_Light_White  0xF7E01F
 
 
 /* ------------- VAR ------------------------------ */
